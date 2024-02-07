@@ -19,90 +19,77 @@
   <link href="{{asset('css/nucleo-svg.css')}}" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="{{asset('css/argon-dashboard.css?v=2.0.4')}}" rel="stylesheet" />
+  <style>
+       .cards {
+            width: 100%;
+            border: none;
+            background-color: transparent;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column
+        }
+    
+        .cards img {
+            width: 800px;
+            height: 350px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+    
+        .cards label {
+            margin-top: 30px;
+            text-align: center;
+            height: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 5%;
+
+        }
+    
+        .cards input {
+            display: none;
+        }
+
+        .table-responsive{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-outline input{
+            background-color: rgb(27, 27, 27);
+            border: none;
+            width: 700px;
+            padding: 15px;
+            
+        }
+
+        .form-outline textarea{
+            background-color: rgb(27, 27, 27);
+            border: none;
+            width: 700px;
+            padding: 15px;
+            
+        }
+  </style>
 </head>
 <body class="g-sidenav-show" style="background-color:#161718;">
     <div class="min-height-300 position-absolute w-100" style="background-color:rgb(112, 1, 1);"></div>
-    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main" style="background-color:#161718;">
-      <div class="sidenav-header">
-        <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
-          <span class="ms-1 font-weight-bold">ARTSY COLLABS</span>
-        </a>
-      </div>
-      <hr class="horizontal dark mt-0">
-      <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="{{route('dashboard.index')}}">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Dashboard</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{route('users.index')}}">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Artists</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="#">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Projects</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="{{route('partners.index')}}">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-app text-info text-sm opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Partners</span>
-            </a>
-          </li>
-     
-          <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="../pages/profile.html">
-              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-              </div>
-              <span class="nav-link-text ms-1">Profile</span>
-            </a>
-          </li>
-   
-        </ul>
-      </div>
-      <div class="sidenav-footer mx-3 ">
-        <div class="card card-plain shadow-none" id="sidenavCard">
-          <img class="w-50 mx-auto" src="../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
-          <div class="card-body text-center p-3 w-100 pt-0">
-            <div class="docs-info">
-              <h6 class="mb-0">Need help?</h6>
-              <p class="text-xs font-weight-bold mb-0">Please check our docs</p>
-            </div>
-          </div>
-        </div>
-        <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
-        <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-      </div>
-    </aside>
     <main class="main-content position-relative border-radius-lg ">
       <!-- Navbar -->
       <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
         <div class="container-fluid py-1 px-3">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-              <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-              <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
+              <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="{{route('projects.index')}}">Pages</a></li>
+              <li class="breadcrumb-item text-sm text-white active" aria-current="page">Projects</li>
             </ol>
-            <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
+            <h6 class="font-weight-bolder text-white mb-0">Create Projects</h6>
           </nav>
           <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -214,65 +201,70 @@
       <div class="container-fluid py-4" >
         <div class="row" >
           <div class="col-12" >
+           <form action="{{route('projects.store')}}" method="POST">
+            @csrf
             <div class="card mb-4" style="background-color:#161718;">
-              <div class="card-header pb-0 d-flex justify-content-between align-items-center" style="background-color:#161718;">
-                <h6>Authors table</h6>
-                <a class="btn btn-primary" href="{{route('projects.create')}}">Create new</a>
-              </div>
-              <div class="card-body px-0 pt-0 pb-2">
-                <div class="table-responsive p-0">
-                  <table class="table align-items-center mb-0">
-                    <thead>
-                      <tr>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Artist</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Craeted_at</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
-                        <th class="text-secondary opacity-7"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        
-                      <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div>
-                              <img src="#" class="avatar avatar-sm me-3" alt="user1">
+                <div class="card-header pb-0 d-flex justify-content-between align-items-center" style="background-color:#161718;">
+                  <h6>Create New Project</h6>
+                  <a class="btn btn-primary" href="{{route('projects.create')}}">Publish</a>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                  <div class="table-responsive p-0">
+                    <div class="cards">
+                        <img src="https://www.bootdey.com/image/800x350/FFFFF/000000" id="image">
+                        <label for="input-file">Choose Image</label>
+                        @error('profile')
+                        <p class="fname-error text-danger">{{$message}}</p>
+                            
+                        @enderror
+                        <input type="file" accept="image/jpg, image/png, image/jpeg" name="profile"
+                            style="background-color: transparent;" id="input-file">
+                    </div>
+                            <div class="form-outline mb-4">
+                        <label for="">Title</label>
+                                <input type="text" id="fullname" class="form-control"
+                                    placeholder="Title" name="title" />
+                                @error('title')
+                                <p class="fname-error text-danger">{{$message}}</p>
+                                    
+                                @enderror
                             </div>
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm text-light"> zertyui</h6>
-                              <p class="text-xs text-secondary mb-0"> dcvbn, </p>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <p class="text-xs font-weight-bold mb-0">Manager</p>
-                          <p class="text-xs text-secondary mb-0">Organization</p>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                          <span class="badge badge-sm bg-gradient-success">xcvbn,;</span>
-                        </td>
-                        <td class="align-middle text-center">
-                          <span class="text-secondary text-xs font-weight-bold"> xcvbn, </span>
-                        </td>
-                        <td >
-                          <div class="d-flex align-items-center justify-content-center">
-                            <a href="javascript:;" class="font-weight-bold text-xs me-5 text-primary" data-toggle="tooltip" data-original-title="Edit user">
-                              Edit
-                            </a>
-                            <a href="javascript:;" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                              Delete
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-                     
-                    </tbody>
-                  </table>
+
+                    <div class="form-outline mb-4">
+                        <label for="">Description</label>
+                        <textarea type="text" id="email" class="form-control" placeholder="Description"
+                            name="description" ></textarea>
+                            @error('description')
+                            <p class="fname-error text-danger">{{$message}}</p>
+                                
+                            @enderror
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <label for="">Start Date</label>
+                        <input type="date"  class="form-control" placeholder="Start_date"
+                            name="start_date" />
+                            @error('start_date')
+                            <p class="fname-error text-danger">{{$message}}</p>
+                                
+                            @enderror
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <label for="">End Date</label>
+                        <input type="date"  class="form-control" placeholder="End_date"
+                            name="end_date" />
+                            @error('end_date')
+                            <p class="fname-error text-danger">{{$message}}</p>
+                                
+                            @enderror
+                    </div>
+
+                   
+                  </div>
                 </div>
               </div>
-            </div>
+           </form>
           </div>
         </div>
         <footer class="footer pt-3  ">
@@ -386,6 +378,7 @@
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="{{asset('js/form.js')}}"></script>
     <script>
       var win = navigator.platform.indexOf('Win') > -1;
       if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -399,26 +392,5 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/argon-dashboard.min.js?v=2.0.4"></script>
-
-    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-
- 
-    @if (session('status'))
-    <script>
-        setTimeout(function() {
-            Swal.fire({
-                title: 'Success',
-                text: '{{ session('status') }}',
-                icon: 'success',
-                background : '#161718',
-                confirmButtonClass: 'btn btn-success', 
-                confirmButtonText: 'Cancel',
-                confirmButtonColor: 'rgb(112, 1, 1)',
-            });
-        }, {{ session('delay', 0) }});
-    </script>
-    @endif
   </body>
   </html>

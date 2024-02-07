@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('cover');
             $table->decimal('budget');
             $table->date('start_date');
             $table->date('end_date');

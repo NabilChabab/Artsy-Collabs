@@ -49,7 +49,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">
+            <a class="nav-link " href="{{route('projects.index')}}">
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
               </div>
@@ -57,7 +57,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="{{route('partners.index')}}">
+            <a class="nav-link active" href="#">
               <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                 <i class="ni ni-app text-info text-sm opacity-10"></i>
               </div>
@@ -76,7 +76,7 @@
               <span class="nav-link-text ms-1">Profile</span>
             </a>
           </li>
-   
+      
         </ul>
       </div>
       <div class="sidenav-footer mx-3 ">
@@ -216,57 +216,62 @@
           <div class="col-12" >
             <div class="card mb-4" style="background-color:#161718;">
               <div class="card-header pb-0 d-flex justify-content-between align-items-center" style="background-color:#161718;">
-                <h6>Authors table</h6>
-                <a class="btn btn-primary" href="{{route('projects.create')}}">Create new</a>
+                <h6>Partners table</h6>
+                <a class="btn btn-primary" href="{{route('partners.create')}}">Create new</a>
               </div>
               <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">
                   <table class="table align-items-center mb-0">
                     <thead>
                       <tr>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Artist</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Logo</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Craeted_at</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
                         <th class="text-secondary opacity-7"></th>
                       </tr>
                     </thead>
                     <tbody>
-                        
+                        @foreach ($partners as $partner)
+                          
                       <tr>
                         <td>
                           <div class="d-flex px-2 py-1">
                             <div>
-                              <img src="#" class="avatar avatar-sm me-3" alt="user1">
+                              <img src="{{$partner->getFirstMediaUrl('images')}}" class="avatar avatar-sm me-3" alt="user1">
                             </div>
                             <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm text-light"> zertyui</h6>
-                              <p class="text-xs text-secondary mb-0"> dcvbn, </p>
+                              <h6 class="mb-0 text-sm text-light"> {{$partner->name}}</h6>
+                              <p class="text-xs text-secondary mb-0"> {{$partner->name}}@gmail.com</p>
                             </div>
                           </div>
                         </td>
                         <td>
-                          <p class="text-xs font-weight-bold mb-0">Manager</p>
-                          <p class="text-xs text-secondary mb-0">Organization</p>
+                          @php
+                            $desc = str_word_count($partner->description)> 10 ? \Illuminate\Support\Str::limit($partner->description, 70) : $partner->description;
+                          @endphp
+                          <p class="text-xs font-weight-bold mb-0">{{$desc}}</p>
+                          
                         </td>
-                        <td class="align-middle text-center text-sm">
-                          <span class="badge badge-sm bg-gradient-success">xcvbn,;</span>
-                        </td>
+                    
                         <td class="align-middle text-center">
-                          <span class="text-secondary text-xs font-weight-bold"> xcvbn, </span>
+                          <span class="text-secondary text-xs font-weight-bold">{{$partner->created_at}}</span>
                         </td>
                         <td >
-                          <div class="d-flex align-items-center justify-content-center">
-                            <a href="javascript:;" class="font-weight-bold text-xs me-5 text-primary" data-toggle="tooltip" data-original-title="Edit user">
+                          <div class="d-flex align-items-center justify-content-center gap-5">
+                            <a href="javascript:;" class="font-weight-bold text-xs text-primary" data-toggle="tooltip" data-original-title="Edit user">
                               Edit
                             </a>
                             <a href="javascript:;" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                               Delete
                             </a>
+                            <a href="javascript:;" class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                              Asign a project
+                            </a>
                           </div>
                         </td>
                       </tr>
+                      @endforeach
                      
                     </tbody>
                   </table>
@@ -404,7 +409,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
- 
     @if (session('status'))
     <script>
         setTimeout(function() {

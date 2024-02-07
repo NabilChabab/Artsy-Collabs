@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArtProjectController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -31,8 +32,9 @@ Route::resource('users', UserController::class);
 
 //admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('/dahsboard', AdminController::class);
-    Route::resource('/projects', ArtProjectController::class);
+    Route::resource('dashboard', AdminController::class);
+    Route::resource('projects', ArtProjectController::class);
+    Route::resource('partners', PartnersController::class);
     
 });
 

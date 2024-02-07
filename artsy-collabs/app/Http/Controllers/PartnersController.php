@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePartnerRequest;
+use App\Models\Partner;
 use Illuminate\Http\Request;
 
-class ArtProjectController extends Controller
+class PartnersController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.projects');
+        $partners = Partner::all();
+        return view('admin.partners' , compact('partners'));
     }
 
     /**
@@ -19,15 +22,18 @@ class ArtProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.create.projetcs');
+        return view('admin.create.partners');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePartnerRequest $request)
     {
-        //
+        $partner = Partner::create($request->all());
+        $partner->addMediaFromRequest('logo')->toMediaCollection('images');
+        $partner->save();
+        return redirect('partners')->with('status','The Partner Has Been Created Successfully!');
     }
 
     /**

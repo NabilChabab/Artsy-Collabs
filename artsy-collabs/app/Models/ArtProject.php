@@ -12,7 +12,7 @@ class ArtProject extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'cover', 'budget', 'start_date', 'end_date', 'status', 'partner_id'
+        'title', 'description', 'budget', 'start_date', 'end_date', 'status', 'partner_id'
     ];
 
     public function partner()

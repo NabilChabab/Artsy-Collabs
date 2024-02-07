@@ -12,7 +12,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::latest()->take(4)->get();
         return view('admin.dashboard' , compact('users'));
     }
 
