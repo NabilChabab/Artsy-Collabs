@@ -64,6 +64,15 @@
               <span class="nav-link-text ms-1">Partners</span>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link " href="{{route('userproject.index')}}">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-app text-info text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Artist With Projects</span>
+            </a>
+          </li>
      
           <li class="nav-item mt-3">
             <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
@@ -79,19 +88,7 @@
    
         </ul>
       </div>
-      <div class="sidenav-footer mx-3 ">
-        <div class="card card-plain shadow-none" id="sidenavCard">
-          <img class="w-50 mx-auto" src="../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
-          <div class="card-body text-center p-3 w-100 pt-0">
-            <div class="docs-info">
-              <h6 class="mb-0">Need help?</h6>
-              <p class="text-xs font-weight-bold mb-0">Please check our docs</p>
-            </div>
-          </div>
-        </div>
-        <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
-        <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-      </div>
+    
     </aside>
     <main class="main-content position-relative border-radius-lg ">
       <!-- Navbar -->
@@ -224,8 +221,11 @@
                   <table class="table align-items-center mb-0">
                     <thead>
                       <tr>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Artist</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Project</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Budget</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Start_Date</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">End_Date</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Craeted_at</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
@@ -233,40 +233,69 @@
                       </tr>
                     </thead>
                     <tbody>
-                        
+                        @foreach ($artProject as $project)
+                          
                       <tr>
                         <td>
                           <div class="d-flex px-2 py-1">
                             <div>
-                              <img src="#" class="avatar avatar-sm me-3" alt="user1">
+                              <img src="{{$project->getFirstMediaUrl('images')}}" class="avatar avatar-sm me-3" alt="user1">
                             </div>
                             <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm text-light"> zertyui</h6>
-                              <p class="text-xs text-secondary mb-0"> dcvbn, </p>
+                              <h6 class="mb-0 text-sm text-light"> {{$project->title}}</h6>
+                              <p class="text-xs text-secondary mb-0"> Domain</p>
                             </div>
                           </div>
                         </td>
                         <td>
-                          <p class="text-xs font-weight-bold mb-0">Manager</p>
-                          <p class="text-xs text-secondary mb-0">Organization</p>
+                          @php
+                            $desc = str_word_count($project->description)> 10 ? \Illuminate\Support\Str::limit($project->description, 70) : $project->description;
+                          @endphp
+                          <p class="text-xs font-weight-bold mb-0">{{$desc}}</p>
+                        </td>
+                        <td>
+                    
+                          <p class="text-xs font-weight-bold mb-0"><span class="text-success">$ </span>{{$project->budget}}</p>
+                        </td>
+                        <td>
+                      
+                          <p class="text-xs font-weight-bold mb-0">{{$project->start_date}}</p>
+                        </td>
+                        <td>
+                      
+                          <p class="text-xs font-weight-bold mb-0">{{$project->end_date}}</p>
                         </td>
                         <td class="align-middle text-center text-sm">
-                          <span class="badge badge-sm bg-gradient-success">xcvbn,;</span>
-                        </td>
+                          <a href="#" class="status-badge" data-project-id="{{ $project->id }}" data-status="{{ $project->status }}">
+                              @if ($project->status_label === 'Pending')
+                                  <span class="badge badge-sm bg-gradient-warning">{{ $project->status_label }}</span>
+                              @elseif ($project->status_label === 'Accepted')
+                                  <span class="badge badge-sm bg-gradient-success">{{ $project->status_label }}</span>
+                              @else
+                                  <span class="badge badge-sm bg-gradient-danger">{{ $project->status_label }}</span>
+                              @endif
+                          </a>
+                      </td>
+                      
                         <td class="align-middle text-center">
-                          <span class="text-secondary text-xs font-weight-bold"> xcvbn, </span>
+                          <span class="text-secondary text-xs font-weight-bold"> {{$project->created_at}}</span>
                         </td>
                         <td >
                           <div class="d-flex align-items-center justify-content-center">
                             <a href="javascript:;" class="font-weight-bold text-xs me-5 text-primary" data-toggle="tooltip" data-original-title="Edit user">
                               Edit
                             </a>
-                            <a href="javascript:;" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                              Delete
-                            </a>
+                            <form action="{{route('projects.destroy' , $project->id)}}" method="post">
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user" style="background-color: transparent;border:none;">
+                                Delete
+                              </button>
+                            </form>
                           </div>
                         </td>
                       </tr>
+                      @endforeach
                      
                     </tbody>
                   </table>
@@ -275,6 +304,34 @@
             </div>
           </div>
         </div>
+        <div class="modal fade" id="updateStatusModal" tabindex="-1" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content" style="background-color: #161718">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="updateStatusModalLabel" style="background-color: #161718">Update Status</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body" style="background-color: #161718">
+                    <form id="updateStatusForm" action="{{ route('projectss.update', ['projectss' => $project->id]) }}" method="POST">
+                      @csrf
+                      @method('PUT')
+                      <div class="form-group">
+                          <label for="status">Status:</label>
+                          <select class="form-control text-light" id="status" name="status" style="background-color: #161718">
+                              <option value="0">Pending</option>
+                              <option value="1">Accepted</option>
+                              <option value="2">Refused</option>
+                          </select>
+                      </div>
+                      <input type="hidden" id="project_id" name="project_id" value="{{$project->id}}">
+                      <button type="submit" class="btn btn-primary">Update Status</button>
+                  </form>
+                </div>
+              </div>
+          </div>
+      </div>
+      
+      
         <footer class="footer pt-3  ">
           <div class="container-fluid">
             <div class="row align-items-center justify-content-lg-between">
@@ -402,6 +459,8 @@
 
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
  
@@ -420,5 +479,23 @@
         }, {{ session('delay', 0) }});
     </script>
     @endif
+
+
+    <script>
+    $('.status-badge').click(function () {
+    var projectId = $(this).data('project-id');
+    var status = $(this).data('status'); // Get the status from data attribute
+
+    // Set the value of the select element to the status
+    $('#status').val(status);
+
+    $('#project_id').val(projectId); 
+
+    $('#updateStatusModal').modal('show'); 
+});
+  </script>
+  
+
+
   </body>
   </html>

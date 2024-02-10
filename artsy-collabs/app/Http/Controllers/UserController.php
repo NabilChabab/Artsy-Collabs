@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Models\ArtProject;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin.artists', compact('users'));
+        $projects = ArtProject::all();
+    
+        return view('admin.artists', compact('users' , 'projects' ));
     }
 
     /**
@@ -67,6 +70,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->back()->with('status','The Artist Deleted Successfully');
+
     }
 }

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProjectRequest;
+use App\Models\ArtProject;
+use App\Models\Partner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArtProjectController extends Controller
 {
@@ -11,7 +15,8 @@ class ArtProjectController extends Controller
      */
     public function index()
     {
-        return view('admin.projects');
+        $artProject = ArtProject::all();
+        return view('admin.projects', compact('artProject'));
     }
 
     /**
@@ -25,9 +30,20 @@ class ArtProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        //
+        $projectData = $request->validated();
+
+        if (Auth::check() && Auth::user()->role->id == 1) {
+            $projectData['status'] = array_search('Accepted', ArtProject::STATUS_LABELS);
+        } else {
+            $projectData['status'] = array_search('Pending', ArtProject::STATUS_LABELS);
+        }
+
+        $project = ArtProject::create($projectData);
+        $project->addMediaFromRequest('cover')->toMediaCollection('images');
+
+        return redirect()->route('projects.index')->with('status', 'The Project has been created successfully');
     }
 
     /**
@@ -35,7 +51,7 @@ class ArtProjectController extends Controller
      */
     public function show(string $id)
     {
-        //
+       
     }
 
     /**
@@ -49,16 +65,29 @@ class ArtProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, ArtProject $project)
     {
-        //
-    }
+        $request->validate([
+            'partner_id' => 'required|exists:partners,id',
+        ]);
 
+        $project->partner_id = $request->input('partner_id');
+        $project->save();
+
+        return redirect()->route('partners.index')->with('status', 'The Project has been Assined to The Partner successfully');
+    }
+    
+    
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $project = ArtProject::find($id);
+        $project->delete();
+        return redirect()->route('projects.index')->with('status', 'The Project has been deleted successfully');
     }
+
+ 
+
 }

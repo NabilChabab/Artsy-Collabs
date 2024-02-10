@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePartnerRequest;
+use App\Models\ArtProject;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class PartnersController extends Controller
     public function index()
     {
         $partners = Partner::all();
-        return view('admin.partners' , compact('partners'));
+        $projects = ArtProject::all();
+        $partnerId = $partners->isNotEmpty() ? $partners->first()->id : null;
+        return view('admin.partners' , compact('partners' , 'projects' , 'partnerId'));
     }
 
     /**
@@ -65,6 +68,8 @@ class PartnersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $partner = Partner::findOrFail($id);
+        $partner->delete();
+        return redirect()->back()->with('status','The Partner Deleted Successfully');
     }
 }

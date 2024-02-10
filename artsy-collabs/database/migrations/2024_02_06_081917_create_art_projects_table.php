@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('budget');
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('status');
+            $table->integer('status')->default(0);
             $table->foreignId('partner_id')->constrained('partners');
             $table->timestamps();
             $table->softDeletes();

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ArtProject;
+use App\Models\Partner;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,7 +15,9 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::latest()->take(4)->get();
-        return view('admin.dashboard' , compact('users'));
+        $partners = Partner::with('artProjects')->get();
+        $projects = ArtProject::all();
+        return view('admin.dashboard', compact('users', 'partners', 'projects'));
     }
 
     /**

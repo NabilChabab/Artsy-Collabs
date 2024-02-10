@@ -91,7 +91,7 @@
             height: 100vh;
         }
         #app{
-            background-image: url('images/portfolio-2.jpg');
+            background-image: url('images/bg.jfif');
             width: 100%;
             height: 100vh;
             background-position: center;

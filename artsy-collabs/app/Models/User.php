@@ -51,6 +51,9 @@ class User extends Authenticatable implements HasMedia
 
     public function artProjects()
     {
-        return $this->belongsToMany(ArtProject::class);
+        return $this->belongsToMany(ArtProject::class)->withPivot('response_status', 'request_status');
+
     }
+
+
 }
