@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+
     <title>
         Dashboard
     </title>
@@ -269,8 +268,8 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
-                                                            <img src="{{ $user->getFirstMediaUrl('images') }}"
-                                                                class="avatar avatar-sm me-3" alt="user1">
+                                                            <a href="{{route('Profile.show' , $user->id)}}"><img src="{{ $user->getFirstMediaUrl('images') }}"
+                                                                class="avatar avatar-sm me-3" alt="user1"></a>
                                                         </div>
                                                         <div class="d-flex flex-column justify-content-center">
                                                             <h6 class="mb-0 text-sm text-light"> {{ $user->name }}

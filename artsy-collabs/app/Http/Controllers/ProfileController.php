@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\ArtProject;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,9 +52,12 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $projects = $user->artProjects()->wherePivot('response_status', 1)->get();
+    
+        return view('admin.profile', compact('projects', 'user'));
     }
 
     /**

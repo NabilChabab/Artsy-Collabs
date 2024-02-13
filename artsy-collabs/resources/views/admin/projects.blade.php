@@ -4,8 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+ 
   <title>
     Dashboard
   </title>
@@ -239,7 +238,7 @@
                         <td>
                           <div class="d-flex px-2 py-1">
                             <div>
-                              <img src="{{$project->getFirstMediaUrl('images')}}" class="avatar avatar-sm me-3" alt="user1">
+                              <a href="{{route('home.show' , $project->id)}}"><img src="{{$project->getFirstMediaUrl('images')}}" class="avatar avatar-sm me-3" alt="user1"></a>
                             </div>
                             <div class="d-flex flex-column justify-content-center">
                               <h6 class="mb-0 text-sm text-light"> {{$project->title}}</h6>
@@ -330,7 +329,124 @@
               </div>
           </div>
       </div>
-      
+      <div class="py-4" >
+        <div class="row" >
+          <div class="col-12" >
+            <div class="card mb-4" style="background-color:#161718;">
+              <div class="card-header pb-0 d-flex justify-content-between align-items-center" style="background-color:#161718;">
+                <h6>Deleted Projects</h6>
+              </div>
+              <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                  <table class="table align-items-center mb-0">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Project</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Budget</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Start_Date</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">End_Date</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Craeted_at</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                        <th class="text-secondary opacity-7"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($projects as $project)
+                          
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2 py-1">
+                            <div>
+                              <img src="{{$project->getFirstMediaUrl('images')}}" class="avatar avatar-sm me-3" alt="user1">
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm text-light"> {{$project->title}}</h6>
+                              <p class="text-xs text-secondary mb-0"> Domain</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          @php
+                            $desc = str_word_count($project->description)> 10 ? \Illuminate\Support\Str::limit($project->description, 70) : $project->description;
+                          @endphp
+                          <p class="text-xs font-weight-bold mb-0">{{$desc}}</p>
+                        </td>
+                        <td>
+                    
+                          <p class="text-xs font-weight-bold mb-0"><span class="text-success">$ </span>{{$project->budget}}</p>
+                        </td>
+                        <td>
+                      
+                          <p class="text-xs font-weight-bold mb-0">{{$project->start_date}}</p>
+                        </td>
+                        <td>
+                      
+                          <p class="text-xs font-weight-bold mb-0">{{$project->end_date}}</p>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <a href="#" class="status-badge" data-project-id="{{ $project->id }}" data-status="{{ $project->status }}">
+                              @if ($project->status_label === 'Pending')
+                                  <span class="badge badge-sm bg-gradient-warning">{{ $project->status_label }}</span>
+                              @elseif ($project->status_label === 'Accepted')
+                                  <span class="badge badge-sm bg-gradient-success">{{ $project->status_label }}</span>
+                              @else
+                                  <span class="badge badge-sm bg-gradient-danger">{{ $project->status_label }}</span>
+                              @endif
+                          </a>
+                      </td>
+                      
+                        <td class="align-middle text-center">
+                          <span class="text-secondary text-xs font-weight-bold"> {{$project->created_at}}</span>
+                        </td>
+                        <td >
+                          <div class="d-flex align-items-center justify-content-center">
+                            <form action="{{ route('projects.restore', ['project' => $project->id]) }}" method="POST">
+                              @method('PUT')
+                              @csrf
+                              <button type="submit" class="font-weight-bold text-xs text-success" data-toggle="tooltip" data-original-title="Restore project" style="background-color: transparent;border:none">
+                                Restore
+                            </button>
+                            </form>
+                        </div>
+                        </td>
+                      </tr>
+                      @endforeach
+                     
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="updateStatusModal" tabindex="-1" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content" style="background-color: #161718">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="updateStatusModalLabel" style="background-color: #161718">Update Status</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body" style="background-color: #161718">
+                    <form id="updateStatusForm" action="{{ route('projectss.update', ['projectss' => $project->id]) }}" method="POST">
+                      @csrf
+                      @method('PUT')
+                      <div class="form-group">
+                          <label for="status">Status:</label>
+                          <select class="form-control text-light" id="status" name="status" style="background-color: #161718">
+                              <option value="0">Pending</option>
+                              <option value="1">Accepted</option>
+                              <option value="2">Refused</option>
+                          </select>
+                      </div>
+                      <input type="hidden" id="project_id" name="project_id" value="{{$project->id}}">
+                      <button type="submit" class="btn btn-primary">Update Status</button>
+                  </form>
+                </div>
+              </div>
+          </div>
+      </div>
       
         <footer class="footer pt-3  ">
           <div class="container-fluid">

@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+  
     <title>
         Dashboard
     </title>
@@ -260,9 +259,9 @@
                                     <div class="col-4 text-end">
                                         <div
                                             class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                            <img src="{{ $user->getFirstMediaUrl('images') }}" alt=""
+                                            <a href="{{route('Profile.show' , $user->id)}}"><img src="{{ $user->getFirstMediaUrl('images') }}" alt=""
                                                 srcset=""
-                                                class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                                class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -591,7 +590,7 @@
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="./assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+    <script src="{{asset('assets/js/argon-dashboard.min.js?v=2.0.4')}}"></script>
 </body>
 
 </html>

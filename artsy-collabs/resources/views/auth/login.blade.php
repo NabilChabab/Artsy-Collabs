@@ -5,7 +5,7 @@
     <div class="row gx-lg-5 align-items-center mb-5" style="margin-top: 10%">
         <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
             <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-                Welcome To Wiki <br />
+                Welcome To <span style="font-family: 'Protest Riot', sans-serif;color:brown">ArtsyCollabs</span> <br />
                 <span style="color: white">All on One Platform</span>
             </h1>
             <p class="mb-4 opacity-70" style="color: white">
@@ -49,7 +49,7 @@
                                 
 
                             @if (Route::has('password.request'))
-                                <a class="btn btn-link" href="{{ route('password.request') }}" style="margin-left: 46%">
+                                <a class="btn btn-link text-light" href="{{ route('password.request') }}" style="margin-left: 46%">
                                     {{ __('Forgot Your Password?') }}
                                 </a>
                             @endif
@@ -60,20 +60,20 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
+                                    <label class="form-check-label text-light" for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-block mb-4 col-12">
+                        <button type="submit" class="btn btn-dark btn-block mb-4 col-12">
                             Login
                         </button>
 
                             
                         
-                        <a type="submit" class="mb-4 col-12 register text-primary" href="{{route('register')}}" style="margin-left: 35%">
+                        <a type="submit" class="mb-4 col-12 register text-light" href="{{route('register')}}" style="margin-left: 35%">
                             Dont have an account
                         </a>
 

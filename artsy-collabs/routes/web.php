@@ -38,6 +38,7 @@ Route::post('userRequest', [RequestController::class , 'sendRequest'])->name('us
 //admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('dashboard', AdminController::class);
+    Route::put('projects/{project}/restore', [ArtProjectController::class, 'restore'])->name('projects.restore');
     Route::resource('projects', ArtProjectController::class);
     Route::resource('projectss', UpdateStatusController::class);
     Route::resource('partners', PartnersController::class);

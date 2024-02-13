@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserProjectRequest;
+use App\Mail\ProjectStatusUpdated;
 use App\Models\ArtProject;
 use App\Models\ArtProjectUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UserProjectController extends Controller
 {
@@ -62,9 +64,9 @@ class UserProjectController extends Controller
     public function update(Request $request, string $id)
 {
     $request->validate([
-        'status' => 'required|in:0,1,2', // Ensure the status is one of 0, 1, or 2
-        'project_id' => 'required|exists:art_projects,id', // Ensure the project exists
-        'user_id' => 'required|exists:users,id', // Ensure the user exists
+        'status' => 'required|in:0,1,2', 
+        'project_id' => 'required|exists:art_projects,id', 
+        'user_id' => 'required|exists:users,id',
     ]);
 
     $userProject = ArtProjectUser::where('art_project_id', $request->project_id)
@@ -73,6 +75,12 @@ class UserProjectController extends Controller
 
     $userProject->response_status = $request->status;
     $userProject->save();
+
+    $user = $userProject->user;
+
+    if ($user) {
+        Mail::to($user)->send(new ProjectStatusUpdated($userProject));
+    }
 
     return redirect()->back()->with('status', 'Response status updated successfully.');
 }

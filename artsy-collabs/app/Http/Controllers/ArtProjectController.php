@@ -16,7 +16,8 @@ class ArtProjectController extends Controller
     public function index()
     {
         $artProject = ArtProject::all();
-        return view('admin.projects', compact('artProject'));
+        $projects = ArtProject::onlyTrashed()->get();
+        return view('admin.projects', compact('artProject' , 'projects'));
     }
 
     /**
@@ -88,6 +89,18 @@ class ArtProjectController extends Controller
         return redirect()->route('projects.index')->with('status', 'The Project has been deleted successfully');
     }
 
+    public function restore(string $id)
+    {
+        $project = ArtProject::withTrashed()->find($id);
+
+        if (!$project) {
+            return redirect()->route('projects.index')->with('error', 'Project not found.');
+        }
+
+        $project->restore();
+
+        return redirect()->route('projects.index')->with('status', 'The Project has been restored successfully');
+    }
  
 
 }
