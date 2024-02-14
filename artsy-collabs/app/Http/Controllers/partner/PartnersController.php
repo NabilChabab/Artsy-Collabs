@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\partner;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePartnerRequest;
 use App\Models\ArtProject;
 use App\Models\Partner;

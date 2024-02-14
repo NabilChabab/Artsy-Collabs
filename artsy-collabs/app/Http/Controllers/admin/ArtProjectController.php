@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\ArtProject;
 use App\Models\Partner;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,14 +70,19 @@ class ArtProjectController extends Controller
      */
     public function update(Request $request, ArtProject $project)
     {
-        $request->validate([
-            'partner_id' => 'required|exists:partners,id',
-        ]);
-
-        $project->partner_id = $request->input('partner_id');
-        $project->save();
-
-        return redirect()->route('partners.index')->with('status', 'The Project has been Assined to The Partner successfully');
+        try {
+            $this->authorize('update', $project);
+            $request->validate([
+                'partner_id' => 'required|exists:partners,id',
+            ]);
+    
+            $project->partner_id = $request->input('partner_id');
+            $project->save();
+    
+            return redirect()->route('partners.index')->with('status', 'The Project has been Assined to The Partner successfully');
+        } catch (AuthorizationException $e) {
+            return abort( 403);
+        }
     }
     
     

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\artist;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserProjectRequest;
 use App\Mail\ProjectStatusUpdated;
 use App\Models\ArtProject;
 use App\Models\ArtProjectUser;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class UserProjectController extends Controller

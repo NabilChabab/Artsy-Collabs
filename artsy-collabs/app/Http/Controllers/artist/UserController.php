@@ -1,7 +1,7 @@
 <?php
+namespace App\Http\Controllers\artist;
 
-namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\ArtProject;
 use App\Models\User;

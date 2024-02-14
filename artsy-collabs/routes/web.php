@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ArtProjectController;
+use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\ArtProjectController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PartnersController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RequestController;
-use App\Http\Controllers\UpdateStatusController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserProjectController;
+use App\Http\Controllers\partner\PartnersController;
+use App\Http\Controllers\artist\ProfileController;
+use App\Http\Controllers\admin\RequestController;
+use App\Http\Controllers\admin\UpdateStatusController;
+use App\Http\Controllers\artist\UserController;
+use App\Http\Controllers\artist\UserProjectController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 

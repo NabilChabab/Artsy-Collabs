@@ -1,18 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\ArtProject;
+use App\Models\Partner;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class UpdateStatusController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $users = User::latest()->take(4)->get();
+        $partners = Partner::with('artProjects')->get();
+        $projects = ArtProject::all();
+        return view('admin.dashboard', compact('users', 'partners', 'projects'));
     }
 
     /**
@@ -50,18 +56,9 @@ class UpdateStatusController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ArtProject $project)
+    public function update(Request $request, string $id)
     {
- 
-    
-        $request->validate([
-            'status' => 'required',
-        ]);
-        $project = ArtProject::findOrFail($request->project_id); 
-        $project->status = $request->status; 
-        $project->save();
-    
-        return redirect()->route('projects.index')->with('status', 'The Project has been updated successfully');
+        //
     }
 
     /**
